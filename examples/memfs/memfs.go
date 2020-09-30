@@ -98,6 +98,16 @@ type Memfs struct {
 	openmap map[uint64]*node_t
 }
 
+// Statfs gets file system statistics.
+// The FileSystemBase implementation returns -ENOSYS.
+func (*Memfs) Statfs(path string, stat *fuse.Statfs_t) int {
+	//var statfs_t = &*fuse.Statfs_t{
+	//
+	//}
+	//return 0
+	return -fuse.ENOSYS
+}
+
 func (self *Memfs) Mknod(path string, mode uint32, dev uint64) (errc int) {
 	defer trace(path, mode, dev)(&errc)
 	defer self.synchronize()()
